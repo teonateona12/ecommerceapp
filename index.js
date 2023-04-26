@@ -23,6 +23,10 @@ function getCommand() {
       const orderQuantity = parseInt(args[2]);
       orderProduct(orderProductId, orderQuantity);
       return `Order placed and balance updated in catalog.json: { product_id: "${orderProductId}", order_quantity: "${orderQuantity}"}`;
+    case "get_quantity_of_product":
+      const quantityProductId = args[1];
+      const quantity = getQuantityOfProduct(quantityProductId);
+      return quantity;
     default:
       return `Invalid command: ${command}`;
   }
@@ -75,4 +79,17 @@ function orderProduct(productId, quantity) {
   fs.writeFileSync("catalog.json", JSON.stringify(catalog));
   fs.writeFileSync("orders.json", JSON.stringify(orders));
 }
+function getQuantityOfProduct(productId) {
+  const catalog = JSON.parse(fs.readFileSync("catalog.json", "utf8"));
+  const productIndex = catalog.findIndex(
+    (product) => product.product_id === productId
+  );
+  if (productIndex === -1) {
+    console.log(`Product not found: ${productId}`);
+    return;
+  }
+  const product = catalog[productIndex];
+  return product.balance;
+}
+
 console.log(getCommand());
