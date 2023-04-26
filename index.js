@@ -1,78 +1,53 @@
+import readline from "readline";
 import fs from "fs";
 
-const catalogPath = "catalog.json";
-const salesPath = "sales.json";
+function getCommand() {
+  const args = process.argv.slice(2);
+  const command = args[0];
 
-let catalog = [];
-if (fs.existsSync(catalogPath)) {
-  const catalogData = fs.readFileSync(catalogPath, "utf8");
-  if (catalogData) {
-    catalog = JSON.parse(catalogData);
+  switch (command) {
+    case "save_product":
+      const productId = args[1];
+      const productName = args[2];
+      const productPrice = args[3];
+      saveProduct(productId, productName, productPrice);
+      return `Product saved to catalog.json: {product_id: "${productId}", product_name: "${productName}", product_price: "${productPrice}"}`;
+    case "purchase_product":
+      const purchaseProductId = args[1];
+      const purchaseQuantity = parseInt(args[2]);
+      const purchasePrice = parseInt(args[3]);
+      purchaseProduct(purchaseProductId, purchaseQuantity, purchasePrice);
+      return `Product purchased and balance updated in catalog.json: {product_id: "${purchaseProductId}", purchase_quantity: "${purchaseQuantity}", purchase_price: "${purchasePrice}"}`;
+    default:
+      return `Invalid command: ${command}`;
   }
 }
 
-let sales = {};
-if (fs.existsSync(salesPath)) {
-  const salesData = fs.readFileSync(salesPath, "utf8");
-  if (salesData) {
-    sales = JSON.parse(salesData);
-  }
+function saveProduct(productId, productName, productPrice) {
+  const product = {
+    product_id: productId,
+    product_name: productName,
+    product_price: productPrice,
+    balance: 0,
+  };
+  const catalog = JSON.parse(fs.readFileSync("catalog.json", "utf8"));
+  catalog.push(product);
+  fs.writeFileSync("catalog.json", JSON.stringify(catalog));
 }
 
-const [command, ...args] = process.argv.slice(2);
-
-if (command === "save_product") {
-  const [product_id, product_name, product_price] = args;
-  if (!product_id || !product_name || !product_price) {
-    console.error(
-      "Usage: node index.js save_product <product_id> <product_name> <product_price>"
-    );
-    process.exit(1);
-  }
-
-  const existingProductIndex = catalog.findIndex(
-    (p) => p.product_id === product_id
+function purchaseProduct(productId, quantity, price) {
+  const catalog = JSON.parse(fs.readFileSync("catalog.json", "utf8"));
+  const productIndex = catalog.findIndex(
+    (product) => product.product_id === productId
   );
-  if (existingProductIndex !== -1) {
-    catalog[existingProductIndex].product_name = product_name;
-    catalog[existingProductIndex].product_price = parseFloat(product_price);
-  } else {
-    catalog.push({
-      product_id,
-      product_name,
-      product_price: parseFloat(product_price),
-    });
+  if (productIndex === -1) {
+    console.log(`Product not found: ${productId}`);
+    return;
   }
-
-  fs.writeFileSync(catalogPath, JSON.stringify(catalog));
-  console.log(`Product ${product_id} saved or updated successfully.`);
-} else if (command === "purchase_product") {
-  const [product_id, quantity, price] = args;
-  if (!product_id || !quantity || !price) {
-    console.error(
-      "Usage: node index.js purchase_product <product_id> <quantity> <price>"
-    );
-    process.exit(1);
-  }
-
-  const product = catalog.find((p) => p.product_id === product_id);
-  if (!product) {
-    console.error(`Product with ID ${product_id} not found`);
-    process.exit(1);
-  }
-
-  const totalCost = parseFloat(quantity) * parseFloat(price);
-
-  if (product.product_id in sales) {
-    sales[product.product_id].sales_quantity += parseFloat(quantity);
-    sales[product.product_id].sales_revenue += totalCost;
-  } else {
-    sales[product.product_id] = {
-      sales_quantity: parseFloat(quantity),
-      sales_revenue: totalCost,
-    };
-  }
-
-  fs.writeFileSync(catalogPath, JSON.stringify(catalog));
-  fs.writeFileSync(salesPath, JSON.stringify(sales));
+  const product = catalog[productIndex];
+  product.balance += quantity * price;
+  catalog[productIndex] = product;
+  fs.writeFileSync("catalog.json", JSON.stringify(catalog));
 }
+
+console.log(getCommand());
