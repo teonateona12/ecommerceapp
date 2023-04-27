@@ -48,6 +48,9 @@ function orderProduct(product_id, quantity) {
     console.warn(
       `Warning: No purchased products found for product with ID ${product_id}.`
     );
+    console.error(
+      `Error: Product with ID ${product_id} not found in purchase history.`
+    );
     return;
   }
   let remainingQuantity = quantity;
