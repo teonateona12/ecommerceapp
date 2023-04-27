@@ -7,6 +7,12 @@ const product_price = process.argv.slice(2)[2];
 
 function saveProduct(productId, productName, productPrice) {
   const catalog = JSON.parse(fs.readFileSync("catalog.json"));
+  if (!productId || !productName || !productPrice) {
+    console.error(
+      "Error: productId, productName, or productPrice is undefined."
+    );
+    return;
+  }
   const existingProductIndex = catalog.findIndex(
     (product) => product.product_id === productId
   );

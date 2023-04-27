@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "product_id": "teona",
+    "product_name": "12",
+    "product_price": "12"
+  },
+  {
+    "product_id": "prod001",
+    "product_name": "iphone",
+    "product_price": "2800"
+  }
+]
