@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
   "bin": {
     "save": "./save.js",
     "purchase_product": "./purchase.js",
