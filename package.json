@@ -10,7 +10,8 @@
     "get_quantity_of_product": "./productquantity.js",
     "get_average_price": "./averageprice.js",
     "get_fewest_product": "./fewest.js",
-    "get_most_popular_product": "./popular.js"
+    "get_most_popular_product": "./popular.js",
+    "exit": "./exit.js"
   },
   "dependencies": {
     "commander": "^10.0.1",
