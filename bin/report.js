@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from "fs";
 
-function getOrderReport() {
+export default function getOrderReport() {
   const catalog = JSON.parse(fs.readFileSync("catalog.json"));
   const order = JSON.parse(fs.readFileSync("order.json"));
 
@@ -29,6 +29,7 @@ function getOrderReport() {
   }
 
   console.log(report);
+  return report;
 }
 
 getOrderReport();
