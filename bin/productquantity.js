@@ -3,7 +3,7 @@ import fs from "fs";
 
 const product_id = process.argv.slice(2)[0];
 
-function getQuantityOfProduct(product_id) {
+export default function getQuantityOfProduct(product_id) {
   const purchase = JSON.parse(fs.readFileSync("purchase.json"));
   const purchaseProducts = purchase.filter(
     (purchasedProduct) => purchasedProduct.product_id === product_id

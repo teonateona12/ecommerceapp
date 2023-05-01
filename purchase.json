@@ -1,12 +1,7 @@
 [
   {
     "product_id": "prod001",
-    "quantity": "10",
+    "quantity": "20",
     "price": "2000"
-  },
-  {
-    "product_id": "prod001",
-    "quantity": "30",
-    "price": "3000"
   }
 ]

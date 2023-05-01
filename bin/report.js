@@ -4,27 +4,31 @@ import fs from "fs";
 function getOrderReport() {
   const catalog = JSON.parse(fs.readFileSync("catalog.json"));
   const order = JSON.parse(fs.readFileSync("order.json"));
+
   const report = [];
   for (const orderedProduct of order) {
     const product = catalog.find(
       (product) => product.product_id === orderedProduct.product_id
     );
-
     const quantity = Number(orderedProduct.quantity);
-
     const price = Number(product.product_price);
-    const cogs = quantity * Number(product.cost);
-    const sellingPrice = quantity * price;
+    const sellPrice = Number(orderedProduct.sell_price);
+    const avgCost = (price + sellPrice) / 2;
+    const cogs = avgCost * quantity;
+
     const orderReport = {
       product_id: orderedProduct.product_id,
       product_name: product.product_name,
-      quantity: quantity,
-      price: price,
-      cogs: cogs,
-      selling_price: sellingPrice,
+      price,
+      quantity,
+      cogs,
+      selling_price: sellPrice,
     };
+
     report.push(orderReport);
   }
+
   console.log(report);
 }
+
 getOrderReport();

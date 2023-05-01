@@ -2,16 +2,6 @@
   {
     "product_id": "prod001",
     "product_name": "iphone",
-    "product_price": "999"
-  },
-  {
-    "product_id": "prod002",
-    "product_name": "android",
-    "product_price": "999"
-  },
-  {
-    "product_id": "prod003",
-    "product_name": "android",
-    "product_price": "999"
+    "product_price": "1000"
   }
 ]

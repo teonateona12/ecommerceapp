@@ -7,16 +7,16 @@
     "start": "node index.js"
   },
   "bin": {
-    "save": "./save.js",
-    "purchase_product": "./purchase.js",
-    "order_product": "./order.js",
-    "get_quantity_of_product": "./productquantity.js",
-    "get_average_price": "./averageprice.js",
-    "get_fewest_product": "./fewest.js",
-    "get_most_popular_product": "./popular.js",
-    "exit": "./exit.js",
-    "get_orders_report": "./report.js",
-    "get_product_profit": "./profit.js"
+    "save": "./bin/save.js",
+    "purchase_product": "./bin/purchase.js",
+    "order_product": "./bin/order.js",
+    "get_quantity_of_product": "./bin/productquantity.js",
+    "get_average_price": "./bin/averageprice.js",
+    "get_fewest_product": "./bin/fewest.js",
+    "get_most_popular_product": "./bin/popular.js",
+    "exit": "./bin/exit.js",
+    "get_orders_report": "./bin/report.js",
+    "get_product_profit": "./bin/profit.js"
   },
   "dependencies": {
     "commander": "^10.0.1",
