@@ -22,11 +22,11 @@ export default function getQuantityOfProduct(product_id) {
   let totalQuantity = 0;
 
   for (const purchaseProduct of purchaseProducts) {
-    totalQuantity += Number(purchaseProduct.quantity);
+    totalQuantity += purchaseProduct.quantity;
   }
 
   for (const orderProduct of orderProducts) {
-    totalQuantity -= Number(orderProduct.quantity);
+    totalQuantity -= orderProduct.quantity;
   }
 
   console.log(totalQuantity);

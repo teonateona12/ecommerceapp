@@ -10,9 +10,9 @@ export default function getOrderReport() {
     const product = catalog.find(
       (product) => product.product_id === orderedProduct.product_id
     );
-    const quantity = Number(orderedProduct.quantity);
-    const price = Number(product.product_price);
-    const sellPrice = Number(orderedProduct.sell_price);
+    const quantity = orderedProduct.quantity;
+    const price = product.product_price;
+    const sellPrice = orderedProduct.sell_price;
     const avgCost = (price + sellPrice) / 2;
     const cogs = avgCost * quantity;
 

@@ -19,8 +19,8 @@ const getProductProfit = (product_id) => {
   let totalQuantity = 0;
 
   for (const order of relevantOrders) {
-    const quantity = Number(order.quantity);
-    const sellPrice = Number(order.sell_price);
+    const quantity = order.quantity;
+    const sellPrice = order.sell_price;
     totalRevenue += quantity * sellPrice;
     totalQuantity += quantity;
   }
@@ -38,17 +38,15 @@ const getProductProfit = (product_id) => {
   }
 
   const totalquantity = purchasedProducts.reduce(
-    (accumulator, purchasedProduct) =>
-      Number(accumulator) + Number(purchasedProduct.quantity),
+    (accumulator, purchasedProduct) => accumulator + purchasedProduct.quantity,
     0
   );
   const totalPrice = purchasedProducts.reduce(
     (accumulator, purchasedProduct) =>
-      Number(accumulator) +
-      Number(purchasedProduct.price) * Number(purchasedProduct.quantity),
+      accumulator + purchasedProduct.price * purchasedProduct.quantity,
     0
   );
-  const averagePurchase = Number(totalPrice) / Number(totalquantity);
+  const averagePurchase = totalPrice / totalquantity;
   const profitPerUnit = averagePrice - averagePurchase;
   const totalProfit = totalQuantity * profitPerUnit;
   console.log(totalProfit);

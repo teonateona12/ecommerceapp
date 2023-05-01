@@ -15,17 +15,15 @@ export default function getAveragePrice(product_id) {
   }
 
   const totalQuantity = purchasedProducts.reduce(
-    (accumulator, purchasedProduct) =>
-      Number(accumulator) + Number(purchasedProduct.quantity),
+    (accumulator, purchasedProduct) => accumulator + purchasedProduct.quantity,
     0
   );
   const totalPrice = purchasedProducts.reduce(
     (accumulator, purchasedProduct) =>
-      Number(accumulator) +
-      Number(purchasedProduct.price) * Number(purchasedProduct.quantity),
+      accumulator + purchasedProduct.price * purchasedProduct.quantity,
     0
   );
-  const averagePrice = Number(totalPrice) / Number(totalQuantity);
+  const averagePrice = totalPrice / totalQuantity;
   console.log(averagePrice);
 }
 

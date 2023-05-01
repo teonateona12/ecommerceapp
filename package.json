@@ -7,7 +7,7 @@
     "start": "node index.js"
   },
   "bin": {
-    "save": "./bin/save.js",
+    "save_product": "./bin/save.js",
     "purchase_product": "./bin/purchase.js",
     "order_product": "./bin/order.js",
     "get_quantity_of_product": "./bin/productquantity.js",

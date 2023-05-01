@@ -5,13 +5,28 @@ const product_id = process.argv.slice(2)[0];
 const quantity = process.argv.slice(2)[1];
 
 function orderProduct(product_id, quantity) {
+  if (!product_id || !quantity) {
+    console.error("Error: productId or quantity is undefined.");
+    return;
+  }
+  if (!(+quantity > 0)) {
+    console.error("Error: quantity is not a number.");
+    return;
+  }
+  if (product_id.trim().length === 0) {
+    console.error("Error:  product id is requered");
+    return;
+  }
+
   const catalog = JSON.parse(fs.readFileSync("catalog.json"));
   const existingProductIndex = catalog.findIndex(
     (product) => product.product_id === product_id
   );
 
   if (existingProductIndex === -1) {
-    console.error(`Error: Product with ID ${product_id} not found in catalog.`);
+    console.error(
+      `Error: Product with ID ${product_id} not found in purchase.`
+    );
     return;
   }
 
@@ -25,8 +40,8 @@ function orderProduct(product_id, quantity) {
 
   const order = JSON.parse(fs.readFileSync("order.json"));
   const orderedProduct = {
-    product_id: product_id,
-    quantity: quantity,
+    product_id: product_id.trim(),
+    quantity: +quantity.trim(),
     sell_price: product.product_price,
   };
   order.push(orderedProduct);
