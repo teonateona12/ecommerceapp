@@ -3,7 +3,7 @@ import fs from "fs";
 
 const product_id = process.argv.slice(2)[0];
 
-function getAveragePrice(product_id) {
+export default function getAveragePrice(product_id) {
   const purchase = JSON.parse(fs.readFileSync("purchase.json"));
   const purchasedProducts = purchase.filter(
     (purchasedProduct) => purchasedProduct.product_id === product_id

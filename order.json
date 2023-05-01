@@ -1,10 +1,17 @@
 [
   {
-    "product_id": "prod002",
-    "quantity": "9"
+    "product_id": "prod001",
+    "quantity": "5",
+    "sell_price": "3500"
   },
   {
     "product_id": "prod001",
-    "quantity": "1"
+    "quantity": "10",
+    "sell_price": "3800"
+  },
+  {
+    "product_id": "prod001",
+    "quantity": "15",
+    "sell_price": "4000"
   }
 ]

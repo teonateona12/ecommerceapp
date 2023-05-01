@@ -5,20 +5,31 @@ const product_id = process.argv.slice(2)[0];
 
 function getQuantityOfProduct(product_id) {
   const purchase = JSON.parse(fs.readFileSync("purchase.json"));
-  const purchasedProducts = purchase.filter(
+  const purchaseProducts = purchase.filter(
     (purchasedProduct) => purchasedProduct.product_id === product_id
   );
 
-  if (purchasedProducts.length === 0) {
-    console.log(`No purchased products found with product ID ${product_id}`);
+  const order = JSON.parse(fs.readFileSync("order.json"));
+  const orderProducts = order.filter(
+    (orderedProduct) => orderedProduct.product_id === product_id
+  );
+
+  if (purchaseProducts.length === 0 && orderProducts.length === 0) {
+    console.log(`No products found with product ID ${product_id}`);
     return;
   }
 
-  const totalQuantity = purchasedProducts.reduce(
-    (accumulator, purchasedProduct) =>
-      Number(accumulator) + Number(purchasedProduct.quantity),
-    0
-  );
+  let totalQuantity = 0;
+
+  for (const purchaseProduct of purchaseProducts) {
+    totalQuantity += Number(purchaseProduct.quantity);
+  }
+
+  for (const orderProduct of orderProducts) {
+    totalQuantity -= Number(orderProduct.quantity);
+  }
+
   console.log(totalQuantity);
 }
+
 getQuantityOfProduct(product_id);
